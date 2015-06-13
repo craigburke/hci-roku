@@ -1,0 +1,109 @@
+#remote {
+	padding: 20px;
+	text-align: center;
+	border: 2px #333 solid;
+	
+	-webkit-border-radius: 2em;
+	-moz-border-radius: 2em;
+	border-radius: 2em;
+	width: 14em;
+	background: #45484d; /* Old browsers */
+	background: -moz-linear-gradient(left,  #0D0D0E 0%, #000000 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, right top, color-stop(0%,#0D0D0E), color-stop(100%,#000000)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(left,  #0D0D0E 0%,#000000 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(left,  #0D0D0E 0%,#000000 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(left,  #0D0D0E 0%,#000000 100%); /* IE10+ */
+	background: linear-gradient(to right,  #0D0D0E 0%,#000000 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0D0D0E', endColorstr='#000000',GradientType=1 ); /* IE6-9 */
+}
+
+#remote div {
+	margin: auto;
+	text-align: center;
+	margin-top: .5em;
+}
+
+#remote div span i {
+	text-align: center;
+}
+
+#remote-back, #remote-home {
+	width: 4.5em;
+}
+
+#remote-arrow-up {
+	padding-top: 2.5em;
+	margin-top: 1em;
+	margin-bottom: -.5em;
+
+	-webkit-border-top-left-radius: 1.5em;
+	-webkit-border-top-right-radius: 1.5em;
+	-moz-border-radius-topleft: 1.5em;
+	-moz-border-radius-topright: 1.5em;
+	border-top-left-radius: 1.5em;
+	border-top-right-radius: 1.5em;
+}
+
+#remote-arrow-up .fa-stack-2x {
+	margin-top: -1em;
+}
+
+#remote-arrow-up .fa-stack-1x {
+	margin-top: -2em;
+}
+
+#remote-arrow-left {
+	padding-right: 2.5em;
+	padding-left: 1em;
+	
+	-webkit-border-top-left-radius: 1.5em;
+	-webkit-border-bottom-left-radius: 1.5em;
+	-moz-border-radius-topleft: 1.5em;
+	-moz-border-radius-bottomleft: 1.5em;
+	border-top-left-radius: 1.5em;
+	border-bottom-left-radius: 1.5em;
+}
+
+#remote-arrow-right {
+	margin-left: -.2em;
+	padding-left: 2.5em;
+	padding-right: 1em;
+	
+	-webkit-border-top-right-radius: 1.5em;
+	-webkit-border-bottom-right-radius: 1.5em;
+	-moz-border-radius-topright: 1.5em;
+	-moz-border-radius-bottomright: 1.5em;
+	border-top-right-radius: 1.5em;
+	border-bottom-right-radius: 1.5em;
+}
+
+#remote-arrow-down {
+	padding-bottom: 2.5em;
+	margin-bottom: 1em;
+	margin-top: -.5em;
+	
+	-webkit-border-bottom-right-radius: 1.5em;
+	-webkit-border-bottom-left-radius: 1.5em;
+	-moz-border-radius-bottomright: 1.5em;
+	-moz-border-radius-bottomleft: 1.5em;
+	border-bottom-right-radius: 1.5em;
+	border-bottom-left-radius: 1.5em;
+}
+
+
+#remote-a, #remote-b {
+	-webkit-transform: rotate(90deg);
+	-moz-transform: rotate(90deg);
+	-ms-transform: rotate(90deg);
+	-o-transform: rotate(90deg);
+	trasform: rotate(90deg);
+}
+
+#remote-a {
+	margin-top: 4em;
+	background: #9EB844;
+}
+
+#remote-b {
+	background: #02C2DD;
+}
