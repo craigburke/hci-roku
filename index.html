@@ -1,93 +1,34 @@
 <!DOCTYPE html>
 <html ng-app="rokuApp">
   <head>
-    <script type="text/javascript" src="scripts/app.js"></script>
-    <script type="text/javascript" src="scripts/controllers.js"></script>
+    <script type="text/javascript" src="vendor/angular.min.js"></script>
+    <script type="text/javascript" src="vendor/angular-ui-router.min.js"></script>
+
+    <script type="text/javascript" src="javascripts/app.js"></script>
+    <script type="text/javascript" src="javascripts/routes.js"></script>
+    <script type="text/javascript" src="javascripts/controllers.js"></script>
+    <script type="text/javascript" src="javascripts/directives.js"></script>
+
 
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/bootstrap-theme-dark.css">
 	<link rel="stylesheet" href="css/roku.css">
-
-
 	<link rel="stylesheet" href="css/font-awesome.min.css">
 	
   </head>
-  <body>
+  <body ng-controller="MainController as main">
 	 <h1>Roku Demo</h1>
 	 <div class="container-fluid">
      <div class="row">
-	<div>Roku Remote:</div>
-	 <div id="remote" class="col-md-2">
-		<div> 
- 			<span id="remote-back" class="btn btn-default">
- 		  		<i class="fa fa-arrow-left"></i>
- 			</span>
+	
+		<div class="col-md-2">
+			<div roku-remote></div>
+    	</div>
 		
-			<span id="remote-home" class="btn btn-default">
-		  	  	<i class="fa fa-home"></i>
-			</span>
-		</div> 
-		
-		<div> 
- 			<span id="remote-arrow-up" class="btn-info fa-stack fa-lg">
- 		  		<i class="fa fa-square-o fa-stack-2x"></i>
- 		  	  	<i class="fa fa-chevron-up fa-stack-1x"></i>
- 			</span>		
-		</div>
-		 
-		<div> 
-  			<span id="remote-arrow-left" class="btn-info fa-stack fa-lg">
-  		  		<i class="fa fa-square-o fa-stack-2x"></i>
-  		  		<i class="fa fa-chevron-left fa-stack-1x"></i>
-  			</span>
-		 
-   			<span id="remote-arrow-right" class="btn-info fa-stack fa-lg">
-   		  		<i class="fa fa-square-o fa-stack-2x"></i>
-   		  		<i class="fa fa-chevron-right fa-stack-1x"></i>
-   			</span>
+		<div class="col-md-10">
+			<div ui-view></div>
 		</div>
 		
-		<div>
-   			<span id="remote-arrow-down" class="btn-info fa-stack fa-lg">
-   		  		<i class="fa fa-square-o fa-stack-2x"></i>
-   		  		<i class="fa fa-chevron-down fa-stack-1x"></i>
-   			</span>
-		</div> 
-		 
-		<div>
-			<span id="remote-undo" class="btn btn-default">
-		  	  	<i class="fa fa-undo"></i>
-			</span>
-		
-			<span id="remote-ok" class="btn btn-default">
-		  	  OK
-			</span>
-		
-			<span id="remote-star" class="btn btn-default">
-		  		<i class="fa fa-asterisk"></i>
-			</span>
-		</div>
-		
-		<div>
-			<span id="remote-rewind" class="btn btn-default">
-		  	  	<i class="fa fa-backward"></i>
-			</span>
-		
-			<span id="remote-play" class="btn btn-default">
-				<i class="fa fa-play"></i>
-			</span>
-		
-			<span id="remote-forward" class="btn btn-default">
-		  	  	<i class="fa fa-forward"></i>
-			</span>
-		</div>
-		<div>
-			<span id="remote-a" class="btn btn-default">A</span>	 
-		</div>
-		<div>
-			<span id="remote-b" class="btn btn-default">B</span>	 
-		</div>
-	 </div>
  	</div>
  	</div>
   </body>
