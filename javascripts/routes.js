@@ -7,6 +7,7 @@ angular.module('rokuApp')
 	$stateProvider
 		.state('home', {
 			url:'/home',
+			controller: 'HomeController as homeCtrl',
 			templateUrl:'partials/home.tpl.html'
 		})
 		.state('store', {

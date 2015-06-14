@@ -1,15 +1,14 @@
 'use strict';
 
-function rokuRemote($rootScope, $state, remoteButtons) {
+function rokuRemote($rootScope, $state, $modal, remoteButtons) {
     return {
         restrict: 'EA',
         replace: true,
-        scope: {},
         link: function($scope) {
 			var previousState = 'home';
 			
 			$rootScope.$on('$stateChangeSuccess',  function(event, toState, toParams, fromState, fromParams) {
-			    previousState = fromState.name;
+				previousState = fromState.name;
 			});
 			
 			$scope.clickButton = function(key) {
@@ -20,7 +19,10 @@ function rokuRemote($rootScope, $state, remoteButtons) {
 						$state.go('home');
 						break;
 					case remoteButtons.NOT_IMPLEMENTED:
-						$state.go('notImplented');
+						$modal.open({
+							controller: 'PopupController as ctrl',
+							templateUrl: 'partials/not-implemented.tpl.html'
+						});
 						break;
 					default:
 						$rootScope.$broadcast('remoteButtonPress', key);

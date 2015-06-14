@@ -3,3 +3,11 @@
 
 
 <h3>Channels</h3>
+<div ng-repeat="row in homeCtrl.channels">
+	<div ng-repeat="channel in row" class="channel" ng-class="{active: homeCtrl.isChannelSelected(channel)}">
+		{{channel.name}}
+		<div class="info" ng-if="homeCtrl.isChannelSelected(channel)">
+			Press <i class="fa fa-asterisk"></i> to move or delete this channel.
+		</div>
+	<div>
+</div>
