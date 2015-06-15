@@ -1,3 +1,14 @@
+body {
+	margin:10px;
+}
+
+.page-header h2 {
+	font-size: 18px;
+	color: #BDBDBD;
+	line-height: normal;
+	margin: 0;
+}
+
 #side {
 	z-index: 9999;
 }
