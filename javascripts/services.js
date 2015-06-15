@@ -337,8 +337,16 @@ function KeyboardService() {
 
 }
 
+function AlertService($rootScope) {
+	var alertService = {};
+	alertService.setMessage = function(message) {
+		$rootScope.$broadcast('message', message);
+	}
+	return alertService;
+}
 
 angular.module('rokuApp.services', [])
 	.factory('HomeService', HomeService)
 	.factory('StoreService', StoreService)
-	.factory('KeyboardService', KeyboardService);
+	.factory('KeyboardService', KeyboardService)
+	.factory('AlertService', AlertService);

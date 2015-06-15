@@ -51,6 +51,26 @@ function rokuKeyboard(KeyboardService) {
 	}
 }
 
+function alertMessage($timeout) {
+    return {
+        restrict: 'EA',
+        replace: true,
+        link: function($scope) {
+			
+			$scope.$on('message',  function(event, message) {
+				$scope.message = message;
+				$timeout(function() {
+					$scope.message = '';
+				}, 4000);
+			});
+			
+        },
+        templateUrl: 'partials/alert-message.tpl.html'
+    }
+}
+
+
 angular.module('rokuApp.directives', [])
-	.directive('rokuRemote', rokuRemote)
-	.directive('rokuKeyboard', rokuKeyboard);
+    .directive('rokuRemote', rokuRemote)
+	.directive('rokuKeyboard', rokuKeyboard)
+	.directive('alertMessage', alertMessage);

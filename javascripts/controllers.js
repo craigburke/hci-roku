@@ -2,7 +2,7 @@ function MainController() {
     var self = this;
 }
 
-function HomeController($scope, $state, $modal, remoteButtons, HomeService) {
+function HomeController($scope, $state, $modal, remoteButtons, HomeService, AlertService) {
 	var self = this;
 	self.channels = HomeService.getChannels();
 
@@ -153,6 +153,7 @@ function HomeController($scope, $state, $modal, remoteButtons, HomeService) {
 						HomeService.deleteSelectedChannel();
 						setState(pageState.CHANNEL_SELECTED);
 						reloadChannels();
+						AlertService.setMessage("Channel was succesfully deleted.");
 					});
 				}
 
@@ -316,11 +317,12 @@ function SearchController($scope, $state, $modal, remoteButtons, KeyboardService
 	});
 }
 
-function AddChannelController($scope, $state, remoteButtons, HomeService) {
+function AddChannelController($scope, $state, remoteButtons, HomeService, AlertService) {
 	var self = this;
 	$scope.$on('remoteButtonPress', function(event, key) {
 		if (key === remoteButtons.OK) {
 			HomeService.addChannel();
+			AlertService.setMessage('Successfully added the PBS channel');
 			$state.go('home');
 		}
 	});
