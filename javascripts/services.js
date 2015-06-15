@@ -1,6 +1,7 @@
 'use strict';
 
 function ChannelService() {
+	var MAX_ROW_LENGTH = 3;
 	var channelService = {};
 	var channelAdded = false;
 	
@@ -9,24 +10,31 @@ function ChannelService() {
 		{name: 'Channel 7'}, {name: 'Channel 8'}
 	];
 
-	function getChannelRows() {
-		var result = [];
+	var channelRows = [];
+	function loadChannelRows() {
+		channelRows = [];
 		for (var i = 0; i < channelList.length; i = i + 3) {
-    			result.push(channelList.slice(i, i+3));
+    			channelRows.push(channelList.slice(i, i+3));
 		}
-		return result;
 	}
-	var channelRows = getChannelRows();
-
+	loadChannelRows();	
 
 	var rowPosition = 0;
 	var channelPosition = 0;
 	var isChannelSelected = true;
 
-	var getChannelsInRow = function() {
-		return channelRows[rowPosition].length;
+	channelService.getSelectedChannel = function() {
+		return isChannelSelected ? channelRows[rowPosition][channelPosition] : null;
 	}
 
+	var getChannelIndex = function() {
+		return channelList.indexOf(channelService.getSelectedChannel());
+	}
+
+	var getChannelCountInRow = function() {
+		return channelRows[rowPosition].length;
+	}
+	
 	channelService.selectNone = function() {
 		isChannelSelected = false;
 	}
@@ -50,13 +58,9 @@ function ChannelService() {
 	channelService.onLastRow = function() {
 		return rowPosition === (channelRows.length - 1);
 	}
-	
-	channelService.getSelectedChannel = function() {
-		return isChannelSelected ? channelRows[rowPosition][channelPosition] : null;
-	}
 
 	channelService.selectRight = function() {
-		if (channelPosition === (getChannelsInRow() - 1)) {
+		if (channelPosition === (getChannelCountInRow() - 1)) {
 			channelPosition = 0;
 		}
 		else {
@@ -66,7 +70,7 @@ function ChannelService() {
 	
 	channelService.selectLeft = function() {
 		if (channelPosition == 0) {
-			channelPosition = getChannelsInRow() - 1;
+			channelPosition = getChannelCountInRow() - 1;
 		}
 		else {
 			channelPosition--;
@@ -88,29 +92,57 @@ function ChannelService() {
 		}
 		else {
 			rowPosition++;
-			var maxChannelPosition = getChannelsInRow() - 1;
+			var maxChannelPosition = getChannelCountInRow() - 1;
 			
 			if (channelPosition > maxChannelPosition) {
 				channelPosition = maxChannelPosition;
 			}
-		
+		}
+	}
+
+	function moveChannel(from, to) {
+		channelList.splice(to, 0, channelList.splice(from, 1)[0]);
+		loadChannelRows();
+	}
+
+	channelService.moveRight = function() {
+ 		if (channelPosition !== (MAX_ROW_LENGTH - 1)) {
+			var currentIndex = getChannelIndex();
+			var newIndex = currentIndex + 1;
+			moveChannel(currentIndex, newIndex);
+			channelPosition++;
 		}
 	}
 	
-	channelService.moveRight = function() {
-		
-	}
-	
 	channelService.moveLeft = function() {
-		
+	 	if (channelPosition !== 0) {
+			var currentIndex = getChannelIndex();
+			var newIndex = currentIndex - 1;
+			moveChannel(currentIndex, newIndex);
+			channelPosition--;
+		}	
 	}
 
 	channelService.moveUp = function() {
-		
+		if (!channelService.onFirstRow()) {
+			var currentIndex = getChannelIndex()
+			var newIndex = Math.max(currentIndex - MAX_ROW_LENGTH, 0);
+			moveChannel(currentIndex, newIndex);
+			rowPosition--;
+		}
 	}
 
 	channelService.moveDown = function() {
-		
+		if (!channelService.onLastRow()) {
+			var currentIndex = getChannelIndex()
+			var newIndex = Math.min(currentIndex + MAX_ROW_LENGTH, channelList.length - 1);
+			moveChannel(currentIndex, newIndex);
+			rowPosition++;
+			var newRowChannelCount = getChannelCountInRow();
+			if (channelPosition > newRowChannelCount - 1) {
+				channelPosition = newRowChannelCount - 1;
+			}
+		}
 	}
 
 	channelService.getChannels = function() {
@@ -124,9 +156,8 @@ function ChannelService() {
 	}
 	
 	channelService.deleteSelectedChannel = function() {
-		var channelIndex = channelList.indexOf(channelService.getSelectedChannel());
-		channelList.splice(channelIndex, 1);
-		channelRows = getChannelRows();
+		channelList.splice(getChannelIndex(), 1);
+		loadChannelRows();
 	}
 	
 
