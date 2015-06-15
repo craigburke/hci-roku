@@ -151,3 +151,31 @@
 	-moz-box-shadow:    1px 0px 5px 4px rgba(153, 51, 204, 0.75);
 	box-shadow:         1px 0px 5px 4px rgba(153, 51, 204, 0.75);
 }
+
+.channel .arrows {
+	font-size: 3em;
+}
+
+.channel .arrows div {
+	position: absolute;
+}
+
+.channel .arrows .up {
+	left: 2.75em;
+	top: -1.25em;
+}
+
+.channel .arrows .down {
+	left: 2.75em;
+	bottom: -1.25em;
+}
+
+.channel .arrows .left {
+	top: .75em;
+	left: -1em;
+}
+
+.channel .arrows .right {
+	top: .75em;
+	right: -1em;
+}

@@ -58,6 +58,14 @@ function HomeService() {
 	homeService.onLastRow = function() {
 		return rowPosition === (channelRows.length - 1);
 	}
+	
+	homeService.onFirstRowChannel = function() {
+		return channelPosition === 0;
+	}
+	
+	homeService.onLastRowChannel = function() {
+		return channelPosition === (getChannelCountInRow() - 1)
+	}
 
 	homeService.selectRight = function() {
 		if (channelPosition === (getChannelCountInRow() - 1)) {

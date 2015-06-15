@@ -25,6 +25,26 @@ function HomeController($scope, $state, $modal, remoteButtons, HomeService, Aler
 	self.showInfo = function(channel) {
 		return (channel == HomeService.getSelectedChannel())
 	}
+	
+	self.showArrows = function(channel) {
+		return (self.isChannelSelected(channel) && self.state === pageState.MOVING);
+	}
+
+	self.showUpArrow = function() {
+		return (!HomeService.onFirstRow());
+	}
+	
+	self.showDownArrow = function() {
+		return (!HomeService.onLastRow());
+	}
+	
+	self.showLeftArrow = function() {
+		return (!HomeService.onFirstRowChannel());
+	}
+
+	self.showRightArrow = function() {
+		return (!HomeService.onLastRowChannel());
+	}
 
 	var reloadChannels = function() {
 		self.channels = HomeService.getChannels();
