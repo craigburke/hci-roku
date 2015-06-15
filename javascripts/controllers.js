@@ -12,14 +12,17 @@ function HomeController($scope, $state, $modal, remoteButtons, HomeService) {
 		MOVE_SELECTED:'moveSelected',
 		MOVING:'moving',
 		DELETE_SELECTED:'deleteSelected',
-		DELETE_CONFIRM_OK:'deleteConfirmOk',
-		DELETE_CONFIRM_CANCEL:'deleteConfirmCancel'
+		DELETE_CONFIRMIRMATION:'deleteConfirm'
 	};
 	self.pageState = pageState;
 	self.state = pageState.CHANNEL_SELECTED;
 	HomeService.selectFirstRow();
 
 	self.isChannelSelected = function(channel) {
+		return (channel == HomeService.getSelectedChannel());
+	}
+
+	self.showInfo = function(channel) {
 		return (channel == HomeService.getSelectedChannel())
 	}
 
@@ -45,11 +48,7 @@ function HomeController($scope, $state, $modal, remoteButtons, HomeService) {
 	}
 
 	self.showActionButtons = function() {
-		return inEditMode();
-	}
-
-	var inDeleteConfirmMode = function() {
-		return (self.state === pageState.DELETE_CONFIRM_OK || self.state === pageState.DELETE_CONFIRM_CANCEL);
+		return inEditMode() || self.state === pageState.DELETE_CONFIRMIRMATION;
 	}
 
 	$scope.$on('remoteButtonPress', function(event, key) {
@@ -143,8 +142,11 @@ function HomeController($scope, $state, $modal, remoteButtons, HomeService) {
 				else if (self.state === pageState.MOVE_SELECTED) {
 					setState(pageState.MOVING);
 				}
-				else if (self.state === pageState.DELETE_SELECTED) {
+				else if (self.state === pageState.DELETE_SELECTED) {					
+					setState(pageState.DELETE_CONFIRMIRMATION);
 					var deleteConfirmation = $modal.open({
+						backdrop: false,
+						controller: 'DeleteConfirmController as deleteConfirmCtrl',
 						templateUrl:'partials/delete-confirmation.tpl.html'
 					});	
 					deleteConfirmation.result.then(function() {
@@ -324,9 +326,37 @@ function AddChannelController($scope, $state, remoteButtons, HomeService) {
 	});
 }
 
+function DeleteConfirmController($scope, remoteButtons) {
+	var self = this;
+	
+	var popupState = {
+		OK_SELECTED:'okSelected',
+		CANCEL_SELECTED:'cancelSelected'
+	};
+
+	self.state = popupState.OK_SELECTED;
+	self.popupState = popupState;
+	
+	$scope.$on('remoteButtonPress', function(event, key) {
+		if (key === remoteButtons.LEFT || key === remoteButtons.RIGHT) {
+			self.state = self.state === popupState.OK_SELECTED ? popupState.CANCEL_SELECTED : popupState.OK_SELECTED;
+		}
+		if (key === remoteButtons.OK) {
+			if (self.state === popupState.OK_SELECTED) {
+				$scope.$close();
+			}
+			else {
+				$scope.$dismiss();
+			}
+		}
+		
+	});
+}
+
 angular.module('rokuApp.controllers', [])
 	.controller('MainController', MainController)
 	.controller('HomeController', HomeController)
 	.controller('StoreController', StoreController)
 	.controller('SearchController', SearchController)
-	.controller('AddChannelController', AddChannelController);
+	.controller('AddChannelController', AddChannelController)
+	.controller('DeleteConfirmController', DeleteConfirmController);

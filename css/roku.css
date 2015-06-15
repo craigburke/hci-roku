@@ -1,3 +1,7 @@
+#side {
+	z-index: 9999;
+}
+
 #remote {
 	padding: 20px;
 	text-align: center;

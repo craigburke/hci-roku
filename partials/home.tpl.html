@@ -6,11 +6,11 @@
 <div ng-repeat="row in homeCtrl.channels">
 	<div ng-repeat="channel in row" class="channel" ng-class="{active: homeCtrl.isChannelSelected(channel)}">
 		{{channel.name}}
-		<div class="info" ng-if="homeCtrl.isChannelSelected(channel)">
+		<div class="info" ng-if="homeCtrl.showInfo(channel)">
 			<div ng-if="homeCtrl.state === homeCtrl.pageState.CHANNEL_SELECTED">
 				Press <i class="fa fa-asterisk"></i> to move or delete this channel.
 			</div>
-			<div ng-if="homeCtrl.state === homeCtrl.pageState.MOVE_SELECTED || homeCtrl.state === homeCtrl.pageState.DELETE_SELECTED">
+			<div ng-if="homeCtrl.showActionButtons()">
 				<a class="btn btn-sm btn-primary" ng-class="{active: homeCtrl.state === homeCtrl.pageState.MOVE_SELECTED}">Move</a>
 				<a class="btn btn-sm btn-primary" ng-class="{active: homeCtrl.state === homeCtrl.pageState.DELETE_SELECTED}">Delete</a><br />
 
