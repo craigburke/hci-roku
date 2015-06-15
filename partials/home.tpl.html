@@ -1,11 +1,15 @@
 <h2>Home Screen</h2>
-<a class="btn btn-primary" ui-sref="store" ng-class="{active: homeCtrl.state === homeCtrl.pageState.BUTTON_SELECTED}">Add Channel</a>
+<a class="btn btn-primary" ng-class="{active: homeCtrl.state === homeCtrl.pageState.BUTTON_SELECTED}"><i class="fa fa-plus"></i> Add Channel</a>
 
 
 <h3>Channels</h3>
 <div ng-repeat="row in homeCtrl.channels">
 	<div ng-repeat="channel in row" class="channel" ng-class="{active: homeCtrl.isChannelSelected(channel)}">
-		{{channel.name}}
+		
+		<div class="title">
+			{{channel.name}}
+		</div>
+		
 		<div class="info" ng-if="homeCtrl.showInfo(channel)">
 			<div ng-if="homeCtrl.state === homeCtrl.pageState.CHANNEL_SELECTED">
 				Press <i class="fa fa-asterisk"></i> to move or delete this channel.

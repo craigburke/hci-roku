@@ -1,8 +1,8 @@
 <h2>Channel Store</h2>
-<a class="btn btn-primary" ui-sref="store" ng-class="{active: storeCtrl.state === storeCtrl.pageState.BUTTON_SELECTED}">Search</a>
+<a class="btn btn-primary" ng-class="{active: storeCtrl.state === storeCtrl.pageState.BUTTON_SELECTED}"><i class="fa fa-search"></i> Search</a>
 
 <div ng-repeat="row in storeCtrl.channels">
 	<div ng-repeat="channel in row" class="channel" ng-class="{active: storeCtrl.isChannelSelected(channel)}">
-		{{channel.name}}
+		<div class="title">{{channel.name}}</div>
 	<div>
 </div>
