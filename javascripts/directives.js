@@ -20,7 +20,6 @@ function rokuRemote($rootScope, $state, $modal, remoteButtons) {
 						break;
 					case remoteButtons.NOT_IMPLEMENTED:
 						$modal.open({
-							controller: 'PopupController as ctrl',
 							templateUrl: 'partials/not-implemented.tpl.html'
 						});
 						break;

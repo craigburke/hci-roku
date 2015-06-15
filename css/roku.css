@@ -133,5 +133,8 @@
 .channel.active .info {
 	position: absolute;
 	bottom: 0;
+	width: 100%;
+	text-align: center;
+	background: #000;
 }
 
