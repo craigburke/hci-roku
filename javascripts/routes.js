@@ -12,10 +12,17 @@ angular.module('rokuApp')
 		})
 		.state('store', {
 			url:'/store',
+			controller: 'StoreController as storeCtrl',
 			templateUrl:'partials/store.tpl.html'
 		})
 		.state('search', {
 			url:'/search',
+			controller: 'SearchController as searchCtrl',
 			templateUrl:'partials/search.tpl.html'
+		})
+		.state('addChannel', {
+			url:'/addChannel',
+			controller: 'AddChannelController as addCtrl',
+			templateUrl:'partials/add-channel.tpl.html'
 		});
 });

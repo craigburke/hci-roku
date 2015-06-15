@@ -35,5 +35,22 @@ function rokuRemote($rootScope, $state, $modal, remoteButtons) {
     }
 }
 
+function rokuKeyboard(KeyboardService) {
+	return {
+		restrict: 'EA',
+        	replace: true,
+ 		link: function($scope) {
+			$scope.keyboardRows = KeyboardService.getKeyboardRows();
+			$scope.selectedLetter = KeyboardService.getSelectedLetter();
+			
+			$scope.$on('remoteButtonPress', function() {
+				$scope.selectedLetter = KeyboardService.getSelectedLetter();
+			});
+		},
+        	templateUrl: 'partials/keyboard.tpl.html'
+	}
+}
+
 angular.module('rokuApp.directives', [])
-    .directive('rokuRemote', rokuRemote);
+	.directive('rokuRemote', rokuRemote)
+	.directive('rokuKeyboard', rokuKeyboard);
