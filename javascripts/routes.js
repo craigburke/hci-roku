@@ -24,5 +24,14 @@ angular.module('rokuApp')
 			url:'/addChannel',
 			controller: 'AddChannelController as addCtrl',
 			templateUrl:'partials/add-channel.tpl.html'
+		})
+		.state('pbsChannel', {
+			url:'/pbsChannel',
+			controller: 'PbsController as pbsCtrl',
+			templateUrl:'partials/pbs-channel.tpl.html'
+		})
+		.state('pbsShow', {
+			url:'/pbsShow',
+			templateUrl:'partials/pbs-show.tpl.html'
 		});
 });

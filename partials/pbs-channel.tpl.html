@@ -1,0 +1,7 @@
+<h2>PBS Channel</h2>
+<h3>Shows</h3>
+<div ng-repeat="row in pbsCtrl.shows">
+	<div ng-repeat="show in row" class="channel" ng-class="{active: pbsCtrl.isShowSelected(show)}">
+		<div class="title">{{show.name}}</div>
+	</div>
+</div>

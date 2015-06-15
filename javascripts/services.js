@@ -345,6 +345,78 @@ function KeyboardService() {
 
 }
 
+function PbsService() {
+	var pbsService = {};
+	
+	var showList = [
+		{name: 'Show 1'}, {name: 'Show 2'}, {name: 'Show 3'}, {name: 'Show 4'}, {name: 'Show 5'}, {name: 'Show 6'}
+	];
+	
+	var MAX_ROW_LENGTH = 3;
+
+	var showRows = [];
+	function loadShowRows() {
+		showRows = [];
+		for (var i = 0; i < showList.length; i = i + 3) {
+    			showRows.push(showList.slice(i, i+3));
+		}
+	}
+	loadShowRows();	
+	
+	var rowPosition = 0;
+	var showPosition = 0;
+	
+	var getShowCountInRow = function() {
+		return showRows[rowPosition].length;
+	}
+	
+	pbsService.getSelectedShow = function() {
+		return showRows[rowPosition][showPosition];
+	}
+	
+	pbsService.selectRight = function() {
+		if (showPosition === (getShowCountInRow() - 1)) {
+			showPosition = 0;
+		}
+		else {
+			showPosition++;
+		}
+	}
+	
+	pbsService.selectLeft = function() {
+		if (showPosition == 0) {
+			showPosition = getShowCountInRow() - 1;
+		}
+		else {
+			showPosition--;
+		}
+	}
+	
+	pbsService.selectUp = function() {
+		if (rowPosition == 0) {
+			rowPosition = showRows.length - 1;
+		}
+		else {
+			rowPosition--;
+		}
+	}
+	
+	pbsService.selectDown = function() {
+		if (rowPosition == (showRows.length - 1)) {
+			rowPosition = 0;
+		}
+		else {
+			rowPosition++;
+		}
+	}
+	
+	pbsService.getShowRows = function() {
+		return showRows;
+	}	
+	
+	return pbsService;
+}
+
 function AlertService($rootScope) {
 	var alertService = {};
 	alertService.setMessage = function(message) {
@@ -357,4 +429,5 @@ angular.module('rokuApp.services', [])
 	.factory('HomeService', HomeService)
 	.factory('StoreService', StoreService)
 	.factory('KeyboardService', KeyboardService)
-	.factory('AlertService', AlertService);
+	.factory('AlertService', AlertService)
+	.factory('PbsService', PbsService);

@@ -14,6 +14,7 @@ function HomeController($scope, $state, $modal, remoteButtons, HomeService, Aler
 		DELETE_SELECTED:'deleteSelected',
 		DELETE_CONFIRMIRMATION:'deleteConfirm'
 	};
+	
 	self.pageState = pageState;
 	self.state = pageState.CHANNEL_SELECTED;
 	HomeService.selectFirstRow();
@@ -155,6 +156,9 @@ function HomeController($scope, $state, $modal, remoteButtons, HomeService, Aler
 			case remoteButtons.OK:
 				if (self.state === pageState.BUTTON_SELECTED) {
 					$state.go('store');
+				}
+				else if (self.state === pageState.CHANNEL_SELECTED) {
+					$state.go('pbsChannel');
 				}
 				else if (self.state === pageState.MOVING) {
 					setState(pageState.CHANNEL_SELECTED);
@@ -375,10 +379,38 @@ function DeleteConfirmController($scope, remoteButtons) {
 	});
 }
 
+function PbsController($scope, $state, remoteButtons, PbsService) {
+	var self = this;
+	self.shows = PbsService.getShowRows();
+	
+	self.isShowSelected = function(show) {
+		return (show == PbsService.getSelectedShow());
+	}
+	
+	$scope.$on('remoteButtonPress', function(event, key) {
+		if (key === remoteButtons.LEFT) {
+			PbsService.selectLeft();
+		}
+		else if (key === remoteButtons.RIGHT) {
+			PbsService.selectRight();
+		}
+		else if (key === remoteButtons.UP) {
+			PbsService.selectUp();
+		}
+		else if (key === remoteButtons.DOWN) {
+				PbsService.selectDown();
+		}
+		else if (key === remoteButtons.OK) {
+			$state.go('pbsShow');
+		}
+	});
+}
+
 angular.module('rokuApp.controllers', [])
 	.controller('MainController', MainController)
 	.controller('HomeController', HomeController)
 	.controller('StoreController', StoreController)
 	.controller('SearchController', SearchController)
 	.controller('AddChannelController', AddChannelController)
-	.controller('DeleteConfirmController', DeleteConfirmController);
+	.controller('DeleteConfirmController', DeleteConfirmController)
+	.controller('PbsController', PbsController);
