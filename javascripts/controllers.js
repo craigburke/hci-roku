@@ -281,7 +281,7 @@ function SearchController($scope, $state, $modal, remoteButtons, KeyboardService
 	self.searchText = ""
 	self.pageState = pageState;
 	self.state = pageState.KEYBOARD_SELECTED;
-	self.showResult = false;
+	self.showResults = false;
 
 	var setState = function(state) {
 		self.state = state;
@@ -291,7 +291,7 @@ function SearchController($scope, $state, $modal, remoteButtons, KeyboardService
 		switch(key) {
 			case remoteButtons.RIGHT:
 				if (self.state === pageState.KEYBOARD_SELECTED) {
-					if (KeyboardService.atEndOfRow()) {
+					if (self.showResults && KeyboardService.atEndOfRow()) {
 						setState(pageState.RESULT_SELECTED);
 						KeyboardService.selectNone();					
 					}
@@ -299,12 +299,22 @@ function SearchController($scope, $state, $modal, remoteButtons, KeyboardService
 						KeyboardService.selectRight();
 					}
 				}
+				else {
+					setState(pageState.KEYBOARD_SELECTED);
+					KeyboardService.selectAtBeginningOfRow();					
+				}
 
 				break;
 
-			case remoteButtons.LEFT:
+			case remoteButtons.LEFT:	
 				if (self.state === pageState.KEYBOARD_SELECTED) {
-					KeyboardService.selectLeft();
+					if (self.showResults && KeyboardService.atBeginningOfRow()) {
+						KeyboardService.selectNone();
+						setState(pageState.RESULT_SELECTED);
+					}
+					else {
+						KeyboardService.selectLeft();
+					}
 				}
 				else {
 					setState(pageState.KEYBOARD_SELECTED);
@@ -324,9 +334,7 @@ function SearchController($scope, $state, $modal, remoteButtons, KeyboardService
 					KeyboardService.selectDown();				
 				}
 
-
 				break;
-
 
 			case remoteButtons.OK:
 				if (self.state === pageState.RESULT_SELECTED) {

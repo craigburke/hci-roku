@@ -299,6 +299,12 @@ function KeyboardService() {
 		letterSelected = false;
 	}
 	
+	keyboardService.selectAtBeginningOfRow = function() {
+		letterSelected = true;
+		currentLetter.row = 0;
+		currentLetter.column = 0;
+	}
+	
 	keyboardService.selectAtEndOfRow = function() {
 		letterSelected = true;
 		currentLetter.row = 0;
@@ -311,6 +317,10 @@ function KeyboardService() {
 
 	keyboardService.getSelectedKey = function() {
 		return letterSelected ? keyboardRows[currentLetter.row][currentLetter.column] : null;
+	}
+	
+	keyboardService.atBeginningOfRow = function() {
+		return (currentLetter.column === 0);
 	}
 	
 	keyboardService.atEndOfRow = function() {
