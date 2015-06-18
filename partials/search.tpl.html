@@ -5,13 +5,13 @@
 	<div class="form-group">
 		<input class="form-control" ng-model="searchCtrl.searchText" />
 	</div>
-	<div roku-keyboard></div>
+	<div roku-keyboard ></div>
 </div>
 
 <div class="col-md-6 col-md-offset-1">
 <h2>Results</h2>
-<ul class="list-group">
-  <li class="list-group-item" ng-class="{active: searchCtrl.state === searchCtrl.pageState.RESULT_SELECTED}">Cras justo odio</li>
+<ul class="list-group" ng-if="searchCtrl.showResults">
+  <li class="list-group-item" ng-class="{active: searchCtrl.state === searchCtrl.pageState.RESULT_SELECTED}">PBS</li>
 </ul>
 </div>
 

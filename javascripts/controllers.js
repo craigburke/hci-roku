@@ -278,14 +278,15 @@ function SearchController($scope, $state, $modal, remoteButtons, KeyboardService
 		RESULT_SELECTED:'resultSelected'
 	};
 
-	self.searchText = "PBS"
+	self.searchText = ""
 	self.pageState = pageState;
 	self.state = pageState.KEYBOARD_SELECTED;
+	self.showResult = false;
 
 	var setState = function(state) {
 		self.state = state;
 	}
-
+	
 	$scope.$on('remoteButtonPress', function(event, key) {
 		switch(key) {
 			case remoteButtons.RIGHT:
@@ -330,6 +331,10 @@ function SearchController($scope, $state, $modal, remoteButtons, KeyboardService
 			case remoteButtons.OK:
 				if (self.state === pageState.RESULT_SELECTED) {
 					$state.go('addChannel');
+				}
+				else if (self.state === pageState.KEYBOARD_SELECTED) {
+					self.searchText += KeyboardService.getSelectedKey();
+					self.showResults = true;
 				}
 				else {
 					$modal.open({ templateUrl:'partials/not-implemented.tpl.html' })				

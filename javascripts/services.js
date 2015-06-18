@@ -309,7 +309,7 @@ function KeyboardService() {
 		return keyboardRows;
 	}
 
-	keyboardService.getSelectedLetter = function() {
+	keyboardService.getSelectedKey = function() {
 		return letterSelected ? keyboardRows[currentLetter.row][currentLetter.column] : null;
 	}
 	

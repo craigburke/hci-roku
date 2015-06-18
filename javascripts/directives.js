@@ -30,16 +30,17 @@ function rokuRemote($rootScope, $state, $modal, remoteButtons) {
 function rokuKeyboard(KeyboardService) {
 	return {
 		restrict: 'EA',
-        	replace: true,
- 		link: function($scope) {
+        replace: true,
+		link: function($scope) {
 			$scope.keyboardRows = KeyboardService.getKeyboardRows();
-			$scope.selectedLetter = KeyboardService.getSelectedLetter();
+			$scope.selectedKey = KeyboardService.getSelectedKey();
 			
 			$scope.$on('remoteButtonPress', function() {
-				$scope.selectedLetter = KeyboardService.getSelectedLetter();
+				$scope.selectedKey = KeyboardService.getSelectedKey();
 			});
+		
 		},
-        	templateUrl: 'partials/keyboard.tpl.html'
+        templateUrl: 'partials/keyboard.tpl.html'
 	}
 }
 
