@@ -5,10 +5,19 @@ function rokuRemote($rootScope, $state, $modal, remoteButtons) {
         restrict: 'EA',
         replace: true,
         link: function($scope) {
+			var previousState;
+			
+			$scope.$on('$stateChangeSuccess', function (ev, to, toParams, from, fromParams) {
+				previousState = from.name || 'home';
+			});
+			
 			$scope.clickButton = function(key) {
 				switch(key) {
 					case remoteButtons.HOME:
 						$state.go('home');
+						break;
+					case remoteButtons.BACK:
+						$state.go(previousState);
 						break;
 					case remoteButtons.NOT_IMPLEMENTED:
 						$modal.open({
