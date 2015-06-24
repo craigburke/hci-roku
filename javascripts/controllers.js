@@ -178,6 +178,10 @@ function HomeController($scope, $state, $modal, remoteButtons, HomeService, Aler
 						setState(pageState.CHANNEL_SELECTED);
 						reloadChannels();
 						AlertService.setMessage("Channel was succesfully deleted.");
+					},
+					function() {
+						setState(pageState.DELETE_SELECTED);
+						AlertService.setMessage("Channel delete was cancelled");		
 					});
 				}
 
