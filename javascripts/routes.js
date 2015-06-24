@@ -32,6 +32,7 @@ angular.module('rokuApp')
 		})
 		.state('pbsShow', {
 			url:'/pbsShow',
+			controller: 'ShowController as showCtrl',
 			templateUrl:'partials/pbs-show.tpl.html'
 		});
 });

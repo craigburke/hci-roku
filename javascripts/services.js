@@ -22,6 +22,7 @@ function HomeService() {
 	var rowPosition = 0;
 	var channelPosition = 0;
 	var isChannelSelected = true;
+	var lastDeletedChannel = null;
 
 	homeService.getSelectedChannel = function() {
 		return isChannelSelected ? channelRows[rowPosition][channelPosition] : null;
@@ -166,10 +167,19 @@ function HomeService() {
 	}
 	
 	homeService.deleteSelectedChannel = function() {
+		lastDeletedChannel = angular.copy(homeService.getSelectedChannel());
 		channelList.splice(getChannelIndex(), 1);
 		loadChannelRows();
 	}
 	
+	homeService.undoDelete = function() {
+		if (lastDeletedChannel) {
+			var channelClone = angular.copy(lastDeletedChannel);
+			channelList.unshift(channelClone);
+			lastDeletedChannel = null;
+			loadChannelRows();
+		}
+	}
 
     return homeService;
 }
@@ -295,6 +305,14 @@ function KeyboardService() {
 		['4', '5', '6', '7', '8', '9'] 
 	];
 
+	keyboardService.onFirstRow = function() {
+		return currentLetter.row === 0;
+	}
+	
+	keyboardService.onLastRow = function() {
+		return currentLetter.row === 5;
+	}
+	
 	keyboardService.selectNone = function() {
 		letterSelected = false;
 	}
@@ -309,6 +327,12 @@ function KeyboardService() {
 		letterSelected = true;
 		currentLetter.row = 0;
 		currentLetter.column = 5;
+	}
+	
+	keyboardService.selectAtStartOfLastRown = function() {
+		letterSelected = true;
+		currentLetter.row = 5;
+		currentLetter.column = 0;
 	}
 
 	keyboardService.getKeyboardRows = function() {
@@ -375,6 +399,7 @@ function PbsService() {
 	
 	var rowPosition = 0;
 	var showPosition = 0;
+	var selectedShow = showList[0];
 	
 	var getShowCountInRow = function() {
 		return showRows[rowPosition].length;

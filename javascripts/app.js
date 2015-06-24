@@ -8,5 +8,6 @@ angular.module('rokuApp', ['ui.router', 'ui.bootstrap', 'rokuApp.controllers', '
 		LEFT: 'left',
 		RIGHT: 'right',
 		OK: 'ok',
-		STAR: 'star'
+		STAR: 'star',
+		UNDO: 'undo'
 	});

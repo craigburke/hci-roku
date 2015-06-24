@@ -1,7 +1,12 @@
 <h2>PBS Channel</h2>
-<h3>Shows</h3>
+<h3>Most Recent Shows</h3>
 <div ng-repeat="row in pbsCtrl.shows">
 	<div ng-repeat="show in row" class="channel" ng-class="{active: pbsCtrl.isShowSelected(show)}">
 		<div class="title">{{show.name}}</div>
+		<div class="info" ng-if="pbsCtrl.isShowSelected(show)">
+			Press <strong>OK</strong> or 				
+			<strong><i class="fa fa-play"></i></strong>
+			to watch this show.
+		</div>
 	</div>
 </div>

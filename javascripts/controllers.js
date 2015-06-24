@@ -144,6 +144,11 @@ function HomeController($scope, $state, $modal, remoteButtons, HomeService, Aler
 
 				break;
 
+			case remoteButtons.UNDO:
+				HomeService.undoDelete();
+				reloadChannels();
+				break;
+
 			case remoteButtons.STAR:
 				if (self.state === pageState.CHANNEL_SELECTED) {
 					setState(pageState.MOVE_SELECTED);			
@@ -177,7 +182,7 @@ function HomeController($scope, $state, $modal, remoteButtons, HomeService, Aler
 						HomeService.deleteSelectedChannel();
 						setState(pageState.CHANNEL_SELECTED);
 						reloadChannels();
-						AlertService.setMessage("Channel was succesfully deleted.");
+						AlertService.setMessage("Channel was succesfully deleted. Press <strong><i class='fa fa-undo'></i></strong> to undo.");
 					},
 					function() {
 						setState(pageState.DELETE_SELECTED);
@@ -278,6 +283,7 @@ function SearchController($scope, $state, $modal, remoteButtons, KeyboardService
 	var self = this;
 
 	var pageState = {
+		BUTTON_SELECTED:'buttonSelected',
 		KEYBOARD_SELECTED:'keyboardSelected',
 		RESULT_SELECTED:'resultSelected'
 	};
@@ -328,14 +334,34 @@ function SearchController($scope, $state, $modal, remoteButtons, KeyboardService
 
 			case remoteButtons.UP:
 				if (self.state === pageState.KEYBOARD_SELECTED) {
-					KeyboardService.selectUp();
+					if (KeyboardService.onFirstRow()) {
+						setState(pageState.BUTTON_SELECTED);
+						KeyboardService.selectNone();
+					}
+					else {
+						KeyboardService.selectUp();
+					}
+				}
+				else if (self.state === pageState.BUTTON_SELECTED) {
+					setState(pageState.KEYBOARD_SELECTED);
+					KeyboardService.selectAtStartOfLastRown();
 				}
 			
 				break;
 
 			case remoteButtons.DOWN:
 				if (self.state === pageState.KEYBOARD_SELECTED) {
-					KeyboardService.selectDown();				
+					if (KeyboardService.onLastRow()) {
+						setState(pageState.BUTTON_SELECTED);
+						KeyboardService.selectNone();
+					}
+					else {
+						KeyboardService.selectDown();				
+					}
+				}
+				else if (self.state === pageState.BUTTON_SELECTED) {
+					setState(pageState.KEYBOARD_SELECTED);
+					KeyboardService.selectAtBeginningOfRow();
 				}
 
 				break;
@@ -348,8 +374,9 @@ function SearchController($scope, $state, $modal, remoteButtons, KeyboardService
 					self.searchText += KeyboardService.getSelectedKey();
 					self.showResults = true;
 				}
-				else {
-					$modal.open({ templateUrl:'partials/not-implemented.tpl.html' })				
+				else if (self.state === pageState.BUTTON_SELECTED) {
+					self.searchText = '';
+					self.showResults = false;
 				}
 
 				break;
@@ -363,7 +390,7 @@ function AddChannelController($scope, $state, remoteButtons, HomeService, AlertS
 	$scope.$on('remoteButtonPress', function(event, key) {
 		if (key === remoteButtons.OK) {
 			HomeService.addChannel();
-			AlertService.setMessage('Successfully added the PBS channel');
+			AlertService.setMessage('Successfully added <strong>the PBS channel</strong>');
 			$state.go('home');
 		}
 	});
@@ -423,6 +450,12 @@ function PbsController($scope, $state, remoteButtons, PbsService) {
 	});
 }
 
+function ShowController(PbsService) {
+	var self = this;
+	self.selectedShow = PbsService.getSelectedShow();
+	
+}
+
 angular.module('rokuApp.controllers', [])
 	.controller('MainController', MainController)
 	.controller('HomeController', HomeController)
@@ -430,4 +463,5 @@ angular.module('rokuApp.controllers', [])
 	.controller('SearchController', SearchController)
 	.controller('AddChannelController', AddChannelController)
 	.controller('DeleteConfirmController', DeleteConfirmController)
-	.controller('PbsController', PbsController);
+	.controller('PbsController', PbsController)
+	.controller('ShowController', ShowController);

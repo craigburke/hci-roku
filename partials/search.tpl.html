@@ -4,10 +4,13 @@
 	Enter your search terms and select a result on the right.
 </div>
 
-<div class="col-md-5">
+<div class="col-md-4">
 <h2>Search</h2>
 	<div class="form-group">
 		<input class="form-control" ng-model="searchCtrl.searchText" />
+	</div>
+	<div class="form-group">
+		<a class="btn btn-primary btn-sm" ng-class="{active: searchCtrl.state === searchCtrl.pageState.BUTTON_SELECTED}"><i class="fa fa-times"></i> Clear search</a>
 	</div>
 	<div roku-keyboard ></div>
 </div>
@@ -15,7 +18,7 @@
 <div class="col-md-6 col-md-offset-1">
 <h2>Search Results</h2>
 <ul class="list-group" ng-if="searchCtrl.showResults">
-  <li class="list-group-item" ng-class="{active: searchCtrl.state === searchCtrl.pageState.RESULT_SELECTED}">PBS</li>
+  <li class="list-group-item" ng-class="{active: searchCtrl.state === searchCtrl.pageState.RESULT_SELECTED}"><span class="btn btn-info btn-xs">Add Channel</span> PBS</li>
 </ul>
 </div>
 

@@ -53,17 +53,17 @@ function rokuKeyboard(KeyboardService) {
 	}
 }
 
-function alertMessage($timeout) {
+function alertMessage($timeout, $sce) {
     return {
         restrict: 'EA',
         replace: true,
         link: function($scope) {
 			
 			$scope.$on('message',  function(event, message) {
-				$scope.message = message;
+				$scope.message = $sce.trustAsHtml(message);
 				$timeout(function() {
 					$scope.message = '';
-				}, 4000);
+				}, 8000);
 			});
 			
         },
